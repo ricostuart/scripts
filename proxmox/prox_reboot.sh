@@ -1,3 +1,8 @@
+# nano /etc/systemd/system/run-on-reboot.service
+#      -- See run-on-reboot.service --
+# systemctl enable run-on-reboot.service
+# systemctl start run-on-reboot.service   
+
 #!/bin/bash 
 
 # Check if the script is run with sudo
