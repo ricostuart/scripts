@@ -1,0 +1,9 @@
+[Unit]
+Description=Run a script on reboot
+
+[Service]
+Type=oneshot
+ExecStart=/path/to/your/script.sh
+
+[Install]
+WantedBy=multi-user.target
