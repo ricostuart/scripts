@@ -20,3 +20,5 @@ then
 else
    echo "$1 ${@:2} cancelled"
 fi
+
+# chmod +x /usr/local/bin/confirm
