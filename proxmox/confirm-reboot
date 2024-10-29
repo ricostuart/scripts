@@ -1,11 +1,13 @@
 # From : https://www.matoski.com/article/confirm-before-executing-shutdown-reboot-linux/
 # Saved in /usr/local/bin
 
-   # Create /etc/profile.d/confirm-shutdown.sh
+# nano /etc/profile.d/confirm-shutdown.sh
       # alias shutdown="/usr/local/bin/confirm /sbin/shutdown"
-   # /etc/profile.d/confirm-reboot.sh
+# nano /etc/profile.d/confirm-reboot.sh
       # alias reboot="/usr/local/bin/confirm /sbin/reboot"
 
+
+# nano /usr/local/bin/confirm
 
 #!/usr/bin/env bash
 echo "About to execute $1 command"
