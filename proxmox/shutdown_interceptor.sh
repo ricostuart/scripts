@@ -10,26 +10,27 @@
 #  2. Countdown Function: The countdown_timer function executes either the reboot or poweroff command based on the value of the action variable.
 #  3. User Confirmation: The script asks for confirmation before proceeding with the action. If the user chooses to proceed, it starts the countdown with the appropriate action message.
 #  4. Stopping the Action: Users can stop the countdown and cancel the action by pressing any key.
+#_______
 #
 # Usage:
 # nano /etc/profile.d/confirm-shutdown.sh
-      # alias shutdown="/usr/local/bin/confirm /sbin/shutdown"
+#       alias shutdown="/usr/local/bin/confirm /sbin/shutdown"
 # nano /etc/profile.d/confirm-reboot.sh
-      # alias reboot="/usr/local/bin/confirm /sbin/reboot
-
+#       alias reboot="/usr/local/bin/confirm /sbin/reboot
+#
 #  1. Save the script to a file, e.g., shutdown_interceptor.sh in the directory /usr/local/bin
 #  2. Make it executable with the command: chmod +x shutdown_interceptor.sh.
 #  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration (like .bashrc or .zshrc):
 #         alias reboot='/usr/local/bin/shutdown_interceptor.sh'
 #         alias poweroff='/usr/local/bin/shutdown_interceptor.sh'
 # ________
-#  OR 
+#  OR
 #  3. Create a file in /etc/profile.d directory called
 #          confirm-reboot.sh
 #    alias reboot='/usr/local/bin/shutdown_interceptor.sh'
 #          confirm-shutdown.sh
 #    alias poweroff='/usr/local/bin/shutdown_interceptor.sh'
-#          
+#
 # After saving the changes, make sure to source your configuration file or restart your terminal.
 # Now, when the reboot or poweroff command is issued, this script will run, allowing for confirmation and a countdown timer before executing the desired action.
 ###############################################
