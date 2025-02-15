@@ -41,7 +41,7 @@
 #
 #  1. Save the script to a file, e.g., shutdown_interceptor in the directory /usr/local/bin
 #  2. Make it executable with the command: chmod +x shutdown_interceptor.
-#  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration (like .bashrc or .zshrc):
+#  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration:
 #       alias poweroff='/usr/local/bin/shutdown_interceptor poweroff'
 #       alias reboot='/usr/local/bin/shutdown_interceptor reboot'
 
@@ -55,7 +55,7 @@
 #
 # After saving the changes, make sure to source your configuration file or restart your terminal.
 # Now, when the reboot or poweroff command is issued, this script will run, allowing for confirmation and a countdown timer before executing the desired action.
-###############################################
+#
 
 ###############################################
 #####             Script Code             #####
@@ -68,13 +68,23 @@ countdown_timer() {
     local progress=0
     local bar_length=20
 
-    echo -n "Starting in $duration seconds..."
+    # Determine the action based on the command
+    if [[ "$1" == "reboot" ]]; then
+        action="Rebooting"
+    elif [[ "$1" == "poweroff" ]]; then
+        action="Powering Off"
+    else
+        echo "Unknown command."
+        exit 1
+    fi
+
+    echo -n "$action in $duration seconds..."
     echo ""
 
     for (( i=0; i<duration; i+=interval )); do
         # Calculate progress
         progress=$(( (i + interval) * bar_length / duration ))
-
+        
         # Display the progress bar
         printf "\r["
         for (( j=0; j<bar_length; j++ )); do
@@ -85,7 +95,7 @@ countdown_timer() {
             fi
         done
         printf "] %d seconds remaining" $(( duration - (i + interval) ))
-
+        
         sleep $interval
 
         # Check for user input to interrupt
@@ -94,7 +104,6 @@ countdown_timer() {
             exit 1
         fi
     done
-
     echo -e "\nTime's up! Executing command..."
 }
 
@@ -105,8 +114,11 @@ clear
 echo "You are about to execute: $1"
 read -p "Are you sure you want to continue? (y/n): " reply
 
+# New line added here
+echo ""
+
 if [[ "$reply" =~ ^[Yy]$ ]]; then
-    countdown_timer
+    countdown_timer "$1"
     # Execute the original command
     exec "$@"
 else
