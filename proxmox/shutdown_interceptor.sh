@@ -111,6 +111,11 @@ countdown_timer() {
 # Clear the screen
 clear
 
+# Display hostname
+echo "*****"
+hostname
+echo "*****"
+
 # Confirm the command
 echo "You are about to execute: $1"
 read -p "Are you sure you want to continue? (y/n): " reply
