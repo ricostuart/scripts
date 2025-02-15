@@ -8,7 +8,7 @@
 ###############################################
 # How the Updated Script Works
 # Countdown Timer with Progress Bar:
-# 
+#
 # The countdown timer runs for 10 seconds and updates the progress bar every second.
 # The progress bar consists of = symbols indicating the elapsed time relative to the total countdown time.
 # The remaining seconds are displayed alongside the progress bar.
