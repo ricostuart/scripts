@@ -35,15 +35,16 @@
 #
 # Usage:
 # nano /etc/profile.d/confirm-shutdown.sh
-#       alias shutdown="/usr/local/bin/confirm /sbin/shutdown"
+#       alias poweroff='/usr/local/bin/shutdown_interceptor poweroff'
 # nano /etc/profile.d/confirm-reboot.sh
-#       alias reboot="/usr/local/bin/confirm /sbin/reboot
+#       alias reboot='/usr/local/bin/shutdown_interceptor reboot'
 #
 #  1. Save the script to a file, e.g., shutdown_interceptor in the directory /usr/local/bin
 #  2. Make it executable with the command: chmod +x shutdown_interceptor.
 #  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration (like .bashrc or .zshrc):
-#         alias reboot='/usr/local/bin/shutdown_interceptor'
-#         alias poweroff='/usr/local/bin/shutdown_interceptor'
+#       alias poweroff='/usr/local/bin/shutdown_interceptor poweroff'
+#       alias reboot='/usr/local/bin/shutdown_interceptor reboot'
+
 # ________
 #  OR
 #  3. Create a file in /etc/profile.d directory called
