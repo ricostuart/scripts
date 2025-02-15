@@ -16,9 +16,10 @@
 #
 # During the countdown, if the user presses any key, the countdown is interrupted, and a message is displayed.
 # Steps to Use the Updated Script
-# Save the code into a file named shutdown_interceptor.
+# Save the code into a file named:
+#    /usr/local/bin/shutdown_interceptor
 # Make it executable:
-#    chmod +x shutdown_interceptor
+#    chmod +x /usr/local/bin/shutdown_interceptor
 #
 # Set up the aliases as previously described to ensure that the reboot and poweroff commands use this script.
 # Reload your shell configuration:
