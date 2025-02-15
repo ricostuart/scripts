@@ -18,18 +18,18 @@
 # nano /etc/profile.d/confirm-reboot.sh
 #       alias reboot="/usr/local/bin/confirm /sbin/reboot
 #
-#  1. Save the script to a file, e.g., shutdown_interceptor.sh in the directory /usr/local/bin
-#  2. Make it executable with the command: chmod +x shutdown_interceptor.sh.
+#  1. Save the script to a file, e.g., shutdown_interceptor in the directory /usr/local/bin
+#  2. Make it executable with the command: chmod +x shutdown_interceptor.
 #  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration (like .bashrc or .zshrc):
-#         alias reboot='/usr/local/bin/shutdown_interceptor.sh'
-#         alias poweroff='/usr/local/bin/shutdown_interceptor.sh'
+#         alias reboot='/usr/local/bin/shutdown_interceptor'
+#         alias poweroff='/usr/local/bin/shutdown_interceptor'
 # ________
 #  OR
 #  3. Create a file in /etc/profile.d directory called
 #          confirm-reboot.sh
-#    alias reboot='/usr/local/bin/shutdown_interceptor.sh'
+#    alias reboot='/usr/local/bin/shutdown_interceptor'
 #          confirm-shutdown.sh
-#    alias poweroff='/usr/local/bin/shutdown_interceptor.sh'
+#    alias poweroff='/usr/local/bin/shutdown_interceptor'
 #
 # After saving the changes, make sure to source your configuration file or restart your terminal.
 # Now, when the reboot or poweroff command is issued, this script will run, allowing for confirmation and a countdown timer before executing the desired action.
