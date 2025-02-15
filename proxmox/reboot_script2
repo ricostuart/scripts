@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Function to display the countdown timer with a progress bar
+countdown_timer() {
+  total_time=10
+  for ((i=total_time; i>0; i--)); do
+    # Calculate the percentage
+    percent=$(( (total_time - i) * 100 / total_time ))
+
+    # Create the progress bar
+    progress_bar=""
+    for ((j=0; j<percent/5; j++)); do
+      progress_bar+="##"  # Two hashes for a solid block
+    done
+    for ((j=percent/5; j<20; j++)); do
+      progress_bar+="  "  # Two spaces for empty blocks
+    done
+
+    # Print the timer and progress bar
+    printf "\rRebooting in: %d seconds... [%s] %d%%" "$i" "$progress_bar" "$percent"
+    sleep 1
+  done
+  echo -e "\nExecuting /sbin/reboot command..."
+  /sbin/reboot
+}
+
+# Clear the screen
+clear
+
+# Display the reboot warning message
+echo "The reboot command has been set."
+echo "You are about to execute the /sbin/reboot command."
+read -p "Do you want to proceed with the reboot? (y/n): " response
+
+# Check user input
+case "$response" in
+  [Yy][Ee][Ss]|[Yy])
+    echo "Reboot is about to start..."
+    
+    # Create a subshell to handle the timer and key press detection
+    {
+      countdown_timer &
+      timer_pid=$!
+
+      # Wait for any key press
+      read -n 1 -s -r -p "Press any key to stop the reboot..."
+      
+      # Kill the timer if a key is pressed
+      kill $timer_pid 2>/dev/null
+      echo -e "\nReboot command has been halted!"
+    }
+    ;;
+  [Nn][Oo]|[Nn])
+    echo "Reboot command has been halted."
+    exit 0
+    ;;
+  *)
+    echo "Invalid response. Please enter 'y' or 'n'."
+    ;;
+esac
