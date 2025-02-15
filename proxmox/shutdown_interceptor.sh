@@ -12,7 +12,7 @@
 #  4. Stopping the Action: Users can stop the countdown and cancel the action by pressing any key.
 #
 # Usage:
-#  1. Save the script to a file, e.g., shutdown_interceptor.sh.
+#  1. Save the script to a file, e.g., shutdown_interceptor.sh in the directory /etc/profile.d/
 #  2. Make it executable with the command: chmod +x shutdown_interceptor.sh.
 #  3. To use this script instead of the standard reboot and poweroff commands, you can create aliases in your shell configuration (like .bashrc or .zshrc):
 # 
