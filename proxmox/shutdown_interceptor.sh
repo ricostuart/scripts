@@ -73,7 +73,7 @@ countdown_timer() {
     for (( i=0; i<duration; i+=interval )); do
         # Calculate progress
         progress=$(( (i + interval) * bar_length / duration ))
-        
+
         # Display the progress bar
         printf "\r["
         for (( j=0; j<bar_length; j++ )); do
@@ -84,7 +84,7 @@ countdown_timer() {
             fi
         done
         printf "] %d seconds remaining" $(( duration - (i + interval) ))
-        
+
         sleep $interval
 
         # Check for user input to interrupt
@@ -93,7 +93,7 @@ countdown_timer() {
             exit 1
         fi
     done
-    
+
     echo -e "\nTime's up! Executing command..."
 }
 
