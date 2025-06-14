@@ -14,22 +14,19 @@ var_os="${var_os:-ubuntu}"
 var_version="${var_version:-22.04}"
 var_unprivileged="${var_unprivileged:-1}"
 
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
-
 header_info "$APP"
 
 # Get version info
 echo "Checking currently installed version..."
 INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' emby-server 2>/dev/null || echo "Not Installed")
-echo -e "Currently Installed Version: ${GREEN}${INSTALLED_VERSION}${NC}"
+echo "Currently Installed Version: ${INSTALLED_VERSION}"
 printf "\n"
 
 echo "Fetching latest available versions..."
 LATEST=$(curl -fsSL https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 BETA=$(jq -r 'map(select(.prerelease)) | first | .tag_name' <<< $(curl --silent https://api.github.com/repos/MediaBrowser/Emby.Releases/releases))
-echo -e "Latest Stable Version: ${GREEN}${LATEST}${NC}"
-echo -e "Latest Beta Version: ${GREEN}${BETA}${NC}"
+echo "Latest Stable Version: ${LATEST}"
+echo "Latest Beta Version: ${BETA}"
 printf "\n"
 
 # Prompt for version choice
@@ -103,4 +100,4 @@ msg_ok "Completed Successfully!"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
 echo -e "${INFO}${YW} Access it using the following URL:${CL}"
 echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:8096${CL}"
-echo -e "${INFO}${YW}Installed Version: ${GREEN}${INSTALLED_VERSION}${NC}${CL}"
+echo -e "${INFO}${YW}Installed Version: ${INSTALLED_VERSION}${CL}"
