@@ -2,7 +2,6 @@
 source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
-# Edited: ricostuart
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://emby.media/
 
@@ -17,14 +16,36 @@ var_unprivileged="${var_unprivileged:-1}"
 
 header_info "$APP"
 
+# Get version info
+echo "Checking currently installed version..."
+INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' emby-server 2>/dev/null || echo "Not Installed")
+echo "Currently Installed Version: ${INSTALLED_VERSION}"
+
+echo "Fetching latest available versions..."
+LATEST=$(curl -fsSL https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
+BETA=$(jq -r 'map(select(.prerelease)) | first | .tag_name' <<< $(curl --silent https://api.github.com/repos/MediaBrowser/Emby.Releases/releases))
+echo "Latest Stable Version: ${LATEST}"
+echo "Latest Beta Version: ${BETA}"
+
 # Prompt for version choice
-read -rp "Do you want to install the Latest (L) or Beta (B) version? [L/B]: " VERSION_CHOICE
+read -rp "Do you want to install the Latest (L), Beta (B), or Cancel (C)? [L/B/C]: " VERSION_CHOICE
 VERSION_CHOICE=${VERSION_CHOICE,,}  # convert to lowercase
-if [[ "$VERSION_CHOICE" == "b" ]]; then
-  VERSION_TYPE="beta"
-else
-  VERSION_TYPE="latest"
-fi
+case "$VERSION_CHOICE" in
+  b)
+    VERSION_TYPE="beta"
+    ;;
+  l)
+    VERSION_TYPE="latest"
+    ;;
+  c)
+    echo "Installation cancelled."
+    exit 0
+    ;;
+  *)
+    echo "Invalid selection. Exiting."
+    exit 1
+    ;;
+esac
 
 variables
 color
@@ -40,7 +61,6 @@ function update_script() {
   fi
 
   if [[ "$VERSION_TYPE" == "beta" ]]; then
-    BETA=$(jq -r 'map(select(.prerelease)) | first | .tag_name' <<< $(curl --silent https://api.github.com/repos/MediaBrowser/Emby.Releases/releases))
     msg_info "Stopping ${APP}"
     systemctl stop emby-server
     msg_ok "Stopped ${APP}"
@@ -52,7 +72,6 @@ function update_script() {
     msg_ok "Updated ${APP}"
 
   else
-    LATEST=$(curl -fsSL https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
     msg_info "Stopping ${APP}"
     systemctl stop emby-server
     msg_ok "Stopped ${APP}"
