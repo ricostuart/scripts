@@ -21,11 +21,15 @@ echo "Checking currently installed version..."
 INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' emby-server 2>/dev/null || echo "Not Installed")
 echo "Currently Installed Version: ${INSTALLED_VERSION}"
 
+echo
+
 echo "Fetching latest available versions..."
 LATEST=$(curl -fsSL https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
 BETA=$(jq -r 'map(select(.prerelease)) | first | .tag_name' <<< $(curl --silent https://api.github.com/repos/MediaBrowser/Emby.Releases/releases))
 echo "Latest Stable Version: ${LATEST}"
 echo "Latest Beta Version: ${BETA}"
+
+echo
 
 # Prompt for version choice
 read -rp "Do you want to install the Latest (L), Beta (B), or Cancel (C)? [L/B/C]: " VERSION_CHOICE
