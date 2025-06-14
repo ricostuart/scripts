@@ -4,6 +4,7 @@
 if ! command -v jq &>/dev/null; then
   echo "jq is not installed. Needed for version checking. Installing jq..."
   apt-get update && apt-get install -y jq
+  clear
 fi
 
 source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
