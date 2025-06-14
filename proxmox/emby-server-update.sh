@@ -6,7 +6,7 @@ if ! command -v jq &>/dev/null; then
   apt-get update && apt-get install -y jq
   clear
 fi
-
+echo "curl1"
 source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
@@ -32,7 +32,9 @@ echo "Currently Installed Version: ${INSTALLED_VERSION}"
 printf "\n"
 
 echo "Fetching latest available versions..."
+echo "curl2"
 LATEST=$(curl -fsSL https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
+echo "curl3"
 BETA=$(jq -r 'map(select(.prerelease)) | first | .tag_name' <<< $(curl --silent https://api.github.com/repos/MediaBrowser/Emby.Releases/releases))
 echo "Latest Stable Version: ${LATEST}"
 echo "Latest Beta Version: ${BETA}"
