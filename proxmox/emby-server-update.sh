@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+# Check if jq is installed, install if missing
+if ! command -v jq &>/dev/null; then
+  echo "jq is not installed. Needed for version checking. Installing jq..."
+  apt-get update && apt-get install -y jq
+fi
+
 source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
@@ -14,12 +21,6 @@ var_disk="${var_disk:-8}"
 var_os="${var_os:-ubuntu}"
 var_version="${var_version:-22.04}"
 var_unprivileged="${var_unprivileged:-1}"
-
-# Check if jq is installed, install if missing
-if ! command -v jq &>/dev/null; then
-  echo "jq is not installed. Installing jq..."
-  apt-get update && apt-get install -y jq
-fi
 
 header_info "$APP"
 
