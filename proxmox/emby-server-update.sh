@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
+# Copyright (c) 2021-2025 tteck
+# Author: tteck (tteckster)
+# Edited : ricostuart
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://emby.media/
 
 # Check if jq is installed, install if missing
 if ! command -v jq &>/dev/null; then
@@ -6,12 +12,6 @@ if ! command -v jq &>/dev/null; then
   apt-get update && apt-get install -y jq
   clear
 fi
-source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
-# Copyright (c) 2021-2025 tteck
-# Author: tteck (tteckster)
-# Edited : ricostuart
-# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
-# Source: https://emby.media/
 
 APP="Emby-Server"
 var_tags="${var_tags:-media}"
