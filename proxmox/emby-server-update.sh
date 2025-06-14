@@ -6,14 +6,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxV
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://emby.media/
 
-# Check if jq is installed, install if missing
-if ! command -v jq &>/dev/null; then
-  echo "jq is not installed. Needed for version checking. Installing jq..."
-  apt-get update && apt-get install -y jq
-  clear
-fi
-
-APP="Emby-Server"
+APP="Emby"
 var_tags="${var_tags:-media}"
 var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-2048}"
@@ -21,6 +14,14 @@ var_disk="${var_disk:-8}"
 var_os="${var_os:-ubuntu}"
 var_version="${var_version:-22.04}"
 var_unprivileged="${var_unprivileged:-1}"
+
+# Check if jq is installed, install if missing
+# This is used to check the current installed version
+if ! command -v jq &>/dev/null; then
+  echo "jq is not installed. Needed for version checking. Installing jq..."
+  apt-get update && apt-get install -y jq
+  clear
+fi
 
 header_info "$APP"
 
