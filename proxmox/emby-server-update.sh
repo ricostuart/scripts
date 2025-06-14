@@ -2,10 +2,11 @@
 source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
+# Edited : ricostuart
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://emby.media/
 
-APP="Emby"
+APP="Emby-Server"
 var_tags="${var_tags:-media}"
 var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-2048}"
@@ -14,13 +15,13 @@ var_os="${var_os:-ubuntu}"
 var_version="${var_version:-22.04}"
 var_unprivileged="${var_unprivileged:-1}"
 
-header_info "$APP"
-
 # Check if jq is installed, install if missing
 if ! command -v jq &>/dev/null; then
   echo "jq is not installed. Installing jq..."
   apt-get update && apt-get install -y jq
 fi
+
+header_info "$APP"
 
 # Get version info
 echo "Checking currently installed version..."
